@@ -82,8 +82,8 @@ impl KecF {
 
         for x in 0..5 {
             for z in 0..self.w {
-                let d_result = *(&C).get(coord(modulo(x as isize - 1, 5), z)).unwrap()
-                    ^ *(&C).get(coord((x + 1) % 5, modulo(z as isize - 1, self.w))).unwrap();
+                let d_result = C[coord(modulo(x as isize - 1, 5), z)]
+                    ^ C[coord((x + 1) % 5, modulo(z as isize - 1, self.w))];
 
                 *D.get_mut(coord(x, z)).unwrap() = d_result;
             }
@@ -92,7 +92,7 @@ impl KecF {
         for x in 0..5 {
             for y in 0..5 {
                 for z in 0..self.w {
-                    *A.get_mut(x, y, z) = A.get(x, y, z) ^ *(&D).get(coord(x, z)).unwrap();
+                    *A.get_mut(x, y, z) = A.get(x, y, z) ^ D[coord(x, z)];
                 }
             }
         }
